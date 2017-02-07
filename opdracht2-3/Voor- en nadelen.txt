@@ -1,0 +1,17 @@
+# Voor- en nadelen JavaScript libraries/frameworks onderzoeken 
+## Voordelen
+- Je hebt snel iets gebouwd
+- Je hoeft niet het wiel opnieuw uit te vinden
+- Cross browser support
+
+## Nadelen
+- Je code kan snel ongestructureerd worden
+- Soms gelimiteerd tot waar het framework voor gemaakt is
+
+# Voor- en nadelen single page web app onderzoeken
+## Voordelen
+- Zijn snel. HTML/CSS/Script worden maar 1 keer geladen
+- Makkelijk om mee te beginnen, want er is geen server voor nodig
+## Nadelen
+- Langzaam te downloaded, door zware client frameworks(als gebruikt)
+- Back and forward buttons become dysfunctional
