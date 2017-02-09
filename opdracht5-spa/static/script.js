@@ -5,6 +5,10 @@
 // App 
 // ========================================================
 var App = function() {
+	this.init();
+}
+
+App.prototype.init = function() {
 	new Routes();
 }
 
@@ -12,8 +16,12 @@ var App = function() {
 // Routes 
 // ========================================================
 var Routes = function() {
-	new View();
+	this.init();
+}
 
+Routes.prototype.init = function() {
+	new View();
+	
 	window.onhashchange = function() {
 		new View();
 	}
