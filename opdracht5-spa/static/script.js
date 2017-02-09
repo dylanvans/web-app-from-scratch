@@ -7,18 +7,15 @@
 var App = function() {
 	this.init();
 }
-
 App.prototype.init = function() {
 	new Routes();
 }
-
 // ========================================================
 // Routes 
 // ========================================================
 var Routes = function() {
 	this.init();
 }
-
 Routes.prototype.init = function() {
 	new View();
 	
@@ -26,14 +23,12 @@ Routes.prototype.init = function() {
 		new View();
 	}
 }
-
 // ========================================================
 // View 
 // ========================================================
 var View = function() {
 	this.toggle();
 }
-
 View.prototype.toggle = function() {
 	this.hideClass = 'js-hide';
 
@@ -48,10 +43,14 @@ View.prototype.toggle = function() {
 				this.viewEl[i].classList.add(this.hideClass);
 			}
 		}
-	}
-	
+	}	
 }
-
+/* 
+Opmerking: 
+- Goed uitgedaagd door het gebruik van protoype.
+- Goed structuur aangebracht in verschillende onderdelen.
+- Probeer witruimtes te beperken i.v.m. lengte document.
+*/
 new App();
 
 }()); 
