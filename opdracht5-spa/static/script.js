@@ -31,10 +31,10 @@ Routes.prototype.init = function() {
 // View 
 // ========================================================
 var View = function() {
-	this.toggle();
+	this.setView();
 }
 
-View.prototype.toggle = function() {
+View.prototype.setView = function() {
 	this.hideClass = 'js-hide';
 
 	if(window.location.hash) {
