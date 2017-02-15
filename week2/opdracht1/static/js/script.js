@@ -12,7 +12,8 @@ App.prototype.init = function() {
 }
 
 App.prototype.getData = function() {
-	var apiKey = 'cca1dc44-8318-4823-b2e8-ae009aa3941a';
+	this.apiKey = 'cca1dc44-8318-4823-b2e8-ae009aa3941a';
+
 	new Request('GET', 'http://content.guardianapis.com/search?section=world&show-blocks=all&api-key=' + apiKey)
 		.then(function() {
 			this.data = data.response.results;
@@ -34,7 +35,7 @@ App.prototype.getData = function() {
 // Request 
 // ========================================================
 var Request = function(type, url) {
-	/* Resource xhr promise: https://stackoverflow.com/questions/30008114/how-do-i-promisify-native-xhr */
+	/* Resource request promise: https://stackoverflow.com/questions/30008114/how-do-i-promisify-native-xhr */
 	return new Promise(function (resolve, reject) {
 		var httpRequest = new XMLHttpRequest();
 
@@ -99,7 +100,7 @@ Routes.prototype.init = function() {
 		this.activeViewEl = activeViewId;
 		this.viewEl = document.getElementsByClassName('view');
 
-		for (var i = 0; i < this.viewEl.length; i++) {
+		for(var i = 0; i < this.viewEl.length; i++) {
 			if(this.activeViewEl == this.viewEl[i].id) {
 				this.viewEl[i].classList.remove(this.hideClass);
 			} else {
