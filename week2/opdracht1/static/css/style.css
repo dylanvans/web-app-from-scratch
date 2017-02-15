@@ -1,0 +1,28 @@
+body {
+  background-color: #f8f8f8;
+  width: 100%;
+  height: 100%; }
+
+header {
+  width: 100%;
+  background-color: #fdfdfd;
+  border-bottom: 2px solid #f8f8f8; }
+
+.practices-list {
+  list-style-type: none; }
+
+.container-views, nav {
+  max-width: 64em;
+  margin: 0 auto;
+  background-color: #fdfdfd; }
+
+.section-inner, .container-links {
+  padding: 1.5em;
+  box-sizing: border-box; }
+
+.view-heading {
+  font-size: 1.5rem;
+  margin-bottom: 0.5em; }
+
+.js-hide {
+  display: none; }

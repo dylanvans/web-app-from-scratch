@@ -1,0 +1,40 @@
+$margin: 1em;
+
+$main-white: #fdfdfd;
+$light-grey: #f8f8f8;
+
+body {
+	background-color: $light-grey;
+	width: 100%;
+	height: 100%;
+}
+
+header {
+	width: 100%;
+	background-color: $main-white;
+	border-bottom: 2px solid $light-grey;
+}
+
+.practices-list {
+	list-style-type: none;
+}
+
+.container-views, nav {
+	max-width: 64em; // 1024 px
+	margin: 0 auto;
+	background-color: $main-white;
+}
+
+.section-inner, .container-links {
+	padding: $margin*1.5;
+	box-sizing: border-box;
+}
+
+.view-heading {
+	font-size: 1.5rem;
+	margin-bottom: $margin*.5;
+}
+
+.js-hide {
+	display: none;
+}

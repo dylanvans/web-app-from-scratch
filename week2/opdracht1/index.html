@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>API opdracht1</title>
+	<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+	<header>
+		<nav>
+			<div class="container-links">
+				<a href="#view-home">Home</a>
+				<a href="#view-list">List</a>
+			</div>
+		</nav>
+	</header>
+	<main class="container-views">
+		<article class="view view-home" id="view-home">
+			<h2 class="view-heading">Home</h2>
+		</article>
+		<article class="view view-best-practices js-hide" id="view-list">
+			<h2 class="view-heading">List</h2>
+			<section class="container-articles">
+				
+			</section>
+		</article>
+		<article class="view view-best-practices js-hide" id="view-detail">
+			<h2 class="view-heading">Detail</h2>
+			<section class="detail-article">
+				
+			</section>
+		</article>
+	</main>
+	<script id="list-template" type="x-template">
+		<h2 class="list-title"></h2>
+		<p class="list-section"></p>
+		<a href="#view-detail" class="detail-link"></a>
+	</script>
+	<script id="detail-template" type="x-template">
+		<h2 class="detail-title"></h2>
+		<p class="detail-text"></p>
+	</script>
+	<script src="static/js/routie.js"></script>
+	<script src="static/js/script.js"></script>
+</body>
+</html>
