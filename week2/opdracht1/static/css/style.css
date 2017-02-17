@@ -1,28 +1,91 @@
+@import url("https://fonts.googleapis.com/css?family=Amiri:400,700");
+* {
+  margin: 0; }
+
+* + * {
+  margin-top: 1.5em; }
+
 body {
-  background-color: #f8f8f8;
+  margin: 0;
+  color: #0C090D;
+  font-family: 'Amiri', serif; }
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+
+h1 {
+  font-size: 1em; }
+
+h2 {
+  font-size: 1.9em;
+  margin-bottom: .5em;
+  line-height: 1.3;
+  font-weight: 600; }
+
+p {
+  font-size: 1.1em;
+  max-width: 38em;
+  line-height: 1.5; }
+
+p a {
+  color: currentColor; }
+
+figure, img {
+  max-width: 100%; }
+
+article {
+  max-width: 38em;
+  margin: 1.5em; }
+
+article p:first-child {
+  font-weight: 700;
+  font-size: 1.2em; }
+
+nav {
+  box-sizing: border-box;
+  background-color: #eaeaea;
   width: 100%;
-  height: 100%; }
+  padding: 0 1.5em; }
 
-header {
-  width: 100%;
-  background-color: #fdfdfd;
-  border-bottom: 2px solid #f8f8f8; }
+nav a {
+  font-size: 1.2em;
+  text-decoration: none;
+  padding: 0 .5em;
+  color: currentColor;
+  background-color: #ddddde; }
 
-.practices-list {
-  list-style-type: none; }
+fieldset {
+  border: 0; }
 
-.container-views, nav {
-  max-width: 64em;
-  margin: 0 auto;
-  background-color: #fdfdfd; }
+input, textarea {
+  font-size: inherit; }
 
-.section-inner, .container-links {
-  padding: 1.5em;
-  box-sizing: border-box; }
+label {
+  font-size: inherit; }
 
-.view-heading {
-  font-size: 1.5rem;
-  margin-bottom: 0.5em; }
+label, input {
+  display: block; }
+
+input {
+  margin-top: .1em; }
+
+input[type=number] {
+  width: 4em;
+  padding: .5em 1em; }
+
+button {
+  font-family: inherit;
+  margin-top: .5em;
+  font-size: inherit;
+  padding: .2em .5em;
+  background-color: #eaeaea;
+  border: 1px solid #b7b6b8; }
+
+.container-articles section {
+  padding: 1em;
+  background-color: #eaeaea; }
 
 .js-hide {
   display: none; }
