@@ -15,7 +15,7 @@ App.prototype.getData = function() {
 
 	//section=world
 
-	new Request('GET', 'http://content.guardianapis.com/search?show-blocks=all&api-key=' + this.apiKey)
+	new Request('GET', 'https://content.guardianapis.com/search?show-blocks=all&api-key=' + this.apiKey)
 		.then(function() {
 			this.data = data.response.results;
 
