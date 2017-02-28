@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>API opdracht1</title>
+	<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li>
+					<a href="#view-home">Home</a>
+				</li>
+				<li>
+					<a href="#view-list">List</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<main class="container-views">
+		<article class="view view-home" id="view-home">
+			<header>
+				<h1>Home</h1>
+				<p>In deze 'app' kan je voorlopig artikelen van The Guardian lezen via zijn API. Maar het kan net zo goed zijn dat volgende week de Wikipedia API als uitgangspunt is genomen. Wordt vervolgt...</p>
+			</header>
+		</article>
+		<article class="view view-list js-hide" id="view-list">
+			<header>
+				<h1>List</h1>
+				<form class="readtime-form">
+					<fieldset>
+						<label for="readtime">Hoeveel minuten heb je om te lezen?</label>
+						<input type="number" id="readtime" class="readtime-input" required>
+					</fieldset>
+					<button type=submit>Vind artikelen</button>
+				</form>
+			</header>
+			<section class="container-articles">
+				
+			</section>
+		</article>
+		<article class="view view-detail js-hide" id="view-detail">
+			<h1>Detail</h1>
+			<section class="detail-article">
+				
+			</section>
+		</article>
+	</main>
+	<script id="list-template" type="x-template">
+		<header class="list-figure">
+			<h2 class="list-title"></h2>
+		</header>
+		<footer>
+			<a href="#view-detail" class="detail-link">Ga naar artikel</a>
+			<ul class="list-article-concept">
+				<li class="article-concept1">TEST</li>
+				<li class="article-concept2">TEST</li>
+			</ul>
+		</footer>
+	</script>
+	<script id="detail-template" type="x-template">
+		<div class="detail-figure"></div>
+		<h2 class="detail-title"></h2>
+		<article class="detail-text"></article>
+	</script>
+	<script src="static/js/routie.js"></script>
+	<script src="static/js/script.js"></script>
+</body>
+</html>

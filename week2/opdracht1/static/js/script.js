@@ -13,13 +13,11 @@ App.prototype.init = function() {
 App.prototype.getData = function() {
 	this.apiKey = 'cca1dc44-8318-4823-b2e8-ae009aa3941a';
 
-	//section=world
-
-	new Request('GET', 'https://content.guardianapis.com/search?show-blocks=all&api-key=' + this.apiKey)
+	new Request('GET', 'https://content.guardianapis.com/search?section=world&show-blocks=all&api-key=' + this.apiKey)
 		.then(function() {
 			this.data = data.response.results;
 
-			this.mapData(this.data)
+			this.mapData(this.data);
 
 			new Routes(this.data);
 			new ReadtimeFilter(this.data);
@@ -99,10 +97,12 @@ Routes.prototype.init = function() {
 	var setView = function(activeViewId, id) {
 		if(activeViewId == 'view-detail') {
 			this.data.forEach(function(data){
-				if(id == data.id) {
+				if(id == data.blocks.main.id) {
 					new DetailTemplate(data);
 				}
 			});
+
+			new WikipediaLinks();
 		}
 
 		this.hideClass = 'js-hide';
@@ -144,7 +144,7 @@ var ListTemplate = function(data) {
 
 	    el.getElementsByClassName('list-title')[0].innerHTML += data.webTitle;
 	    el.getElementsByClassName('list-section')[0].innerHTML += data.webPublicationDate;
-	   	el.getElementsByClassName('detail-link')[0].href = '#view-detail/' + data.id;
+	   	el.getElementsByClassName('detail-link')[0].href = '#view-detail/' + data.blocks.main.id;
 
 	    this.containerEl.appendChild(el);
 	}.bind(this));
@@ -175,8 +175,8 @@ var DetailTemplate = function(data) {
 // ReadtimeFilter 
 // ========================================================
 var ReadtimeFilter = function(data) {
-	this.data = data
-	this.formEl = document.querySelector('.readtime-form')
+	this.data = data;
+	this.formEl = document.querySelector('.readtime-form');
 	this.inputEl = document.querySelector('.readtime-input');
 	
 	this.setReadtimeArticles();
@@ -190,10 +190,10 @@ var ReadtimeFilter = function(data) {
 ReadtimeFilter.prototype.setReadtimeArticles = function() {
 	this.data.map(function(obj) {
 		var totalWords = obj.blocks.body[0].bodyHtml.split(' ').length;
-		if(totalWords <= 250) {
+		if(totalWords <= 230) {
 			obj.readtime = 1; // in minutes
 		} else {
-			obj.readtime = Math.round(totalWords/250);
+			obj.readtime = Math.round(totalWords/230);
 		}
 	});
 }
@@ -207,6 +207,29 @@ ReadtimeFilter.prototype.filterArticlesOnReadtime = function() {
 	}
 
 	return data;
+}
+
+
+
+// ========================================================
+// WikipediaLinks 
+// ========================================================
+var WikipediaLinks = function() {
+	this.getSearchTerms();
+}
+
+WikipediaLinks.prototype.getSearchTerms = function() {
+	this.articleText = document.querySelectorAll('.detail-article p');
+	this.articleText.forEach(function(el){
+		var words = el.innerHTML.split(' ');
+		var searchTerms = [];
+
+		words.forEach(function(word){
+			if(word.charAt(0) === word.toUpperCase().charAt(0)) {
+				console.log(word)
+			}
+		});
+	})
 }
 
 
