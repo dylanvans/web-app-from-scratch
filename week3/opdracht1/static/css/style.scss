@@ -315,18 +315,6 @@ nav h1 {
 	border-bottom: 1px solid $main-yellow;
 }
 
-.main-nav-list li[data-submenu='true']:after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	width: 1em;
-	height: .5em;
-	left: 50%;
-	transform: translateX(-50%);
-	background-image: url(../img/icon-down.svg);
-	background-size: 1em;
-}
-
 .sub-nav {
 	display: flex;
 	margin: 1em 0 0 1.5em;
@@ -612,7 +600,7 @@ div.lightbox section {
 	display: none;
 }
 
-@media screen and (min-width: 50em) {
+@media only screen and (min-width: 50em) {
 	/*// ========================================================
 	// Navigation
 	// ========================================================*/
@@ -633,6 +621,18 @@ div.lightbox section {
 		border-bottom: 0;
 	}
 
+	.main-nav-list li[data-submenu='true']:after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		width: 1em;
+		height: .5em;
+		left: 50%;
+		transform: translateX(-50%);
+		background-image: url(../img/icon-down.svg);
+		background-size: 1em;
+	}
+
 	.container-nav-heading {
 		margin-right: $margin;
 	}
@@ -643,6 +643,7 @@ div.lightbox section {
 	}
 
 	.sub-nav {
+		z-index: 1;
 		position: absolute;
 		opacity: 0;
 		clip: rect(0, 0, 0, 0); 
@@ -721,7 +722,7 @@ div.lightbox section {
 	}
 }
 
-@media screen and (min-width: 40em) {
+@media only screen and (min-width: 40em) {
 	.container-articles {
 		width: 100%;
 		display: flex;
