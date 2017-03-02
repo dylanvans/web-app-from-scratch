@@ -1,22 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Lato:400,700');
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Lato:300,400,700');
+
+$margin: 1em;
 
 $main-white: #FBFFFE;
-$main-black: #0C120C;
-$main-grey: #DDDDDD;
+$sub-white: #FFFFFC;
+$main-black: #242424;
+$main-grey: #515052;
+$light-grey: #F4F4F4;
+$main-blue: #5FD6DB;
+$light-blue: lighten(#DDF0FF, 2%);                               
+$main-red: #FF312E;
+$light-red: lighten($main-red, 35%);
+$main-green: rgb(36, 207, 107);
+$light-green: lighten(rgb(36, 207, 107), 25%);
 $main-orange: #FCDA7B;
+$sub-orange: #F6A623;
 $light-orange: lighten($main-orange, 10%);
-
-* {
-	margin: 0;
-}
-
-* + * {
-	margin-top: 1.5em;
-}
+$main-yellow: #FFFEB0;
 
 body {
 	margin: 0;
-	background-color: lighten($main-grey, 5%);
+	height: 100vh;
+	background-color: $light-grey;
 	color: $main-black;
 	font-family: 'Lato', serif;
 }
@@ -24,35 +29,10 @@ body {
 body > header {
 	background-color: $main-black;
 	color: $main-white;
-	padding: 1em;
 }
 
-nav {
-	box-sizing: border-box;
-	max-width: 55rem;
-	margin: 0 auto;
-}
-
-nav ul {
-	list-style-type: none;
-	padding: 0;
-}
-
-nav li {
-	display: inline-block;
-	margin: 0;
-}
-
-nav a {
-	font-size: 1.2em;
-	padding: 1em;
-	text-decoration: none;
-	color: currentColor;
-}
-
-main {
-	max-width: 55rem;
-	margin: 0 auto;
+section {
+	margin-top: 1em;
 }
 
 h1 {
@@ -65,7 +45,7 @@ h2 {
 	line-height: 1.2;
 }
 
-h1, h2, h3 {
+h1, h2, h3, legend {
 	font-family: 'Bree Serif', 'Lato', serif;
 }
 
@@ -75,13 +55,15 @@ h1, h2, p {
 
 p { 
 	font-size: 1.2em;
-	line-height: 1.3;
+	line-height: 1.6;
 	letter-spacing: .004em;
 }
 
-p a {
-	color: currentColor;	
+a {
+	color: currentColor;
+}
 
+p a {
 	&:hover, &:focus {
 		background-color: $main-orange;
 	}
@@ -94,20 +76,63 @@ figure, img, iframe, video {
 }
 
 figure {
-	margin-top: 0;
+	margin: 0;
+	position: relative;
 }
 
 article p:first-child {
 	font-weight: 700;
 }
 
+form {
+	box-sizing: border-box;
+}
+
 fieldset {
 	border: 0;
 	padding: 0;
+	margin: 0;
 }
 
 input, textarea {
 	font-size: inherit;
+}
+
+input:focus, textarea:focus, a:focus {
+	outline: none;
+	z-index: 1;
+	box-shadow: 0 0 .2em .2em $main-blue;
+}
+
+input[type="checkbox"] {
+    position: absolute;
+    clip: rect(0,0,0,0);
+}
+
+input[type="checkbox"] + label::before {
+	content: '\a0';
+	display: inline-block;
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+	margin-right: .2em;
+	background-color: $light-grey;
+	text-indent: .25em;
+	transition: all .2s ease-in-out;
+	font-size: 1.2em;
+}
+
+input[type="checkbox"]:focus + label::before {
+    box-shadow: 0 0 .2em .2em $main-blue;
+}
+
+input[type="checkbox"]:checked + label::before {
+	content: '\2713';
+	background-color: $main-green;
+}
+
+:disabled, [disabled] {
+    cursor: not-allowed;
 }
 
 label {
@@ -118,32 +143,46 @@ label, input {
 	display: block;
 }
 
-input {
-	margin-top: .5em;
-}
-
 input[type=number] {
 	width: 4em;
 	padding: .5em 1em;
 }
 
 button {
+	display: block;
+	background-color: $sub-orange;
+	letter-spacing: .04em;
+	text-transform: uppercase;
 	font-family: inherit;
-	margin-top: 1em;
 	font-size: inherit;
-	font-weight: 700;
-	padding: .7em 1em;
-	background-color: $light-orange;
 	border: 0;
-	transition: all .3s ease-in-out;
+	text-align: center;
+	color: $main-white;
+	font-weight: 300;
+	margin-top: $margin*.5;
+	transition: all .2s ease-in-out;
+	padding: $margin*.9 $margin*.7;
+}
 
-	&:hover {
-		background-color: $main-orange;
-	}
+button:focus {
+	border: 3px solid $main-blue;
+	outline: none;
+}
+
+button[type=submit]:hover, button[type=submit]:focus {
+	background-color: darken($sub-orange, 5%);
+	transform: translateY(-.2rem) scale(1.03);
+	box-shadow: 0 15px 5px -10px darken($light-grey, 10%);
+}
+
+button[type=submit]:active {
+	transform: translateY(.1rem) scale(1);
+	box-shadow: none;
 }
 
 .view {
-	margin: 1em 0;
+	margin: 1em auto;
+	padding: 0 1em;
 }
 
 .view > header {
@@ -151,12 +190,22 @@ button {
 	background-color:  $main-white;
 }
 
-.view-detail {
-	background-color: $main-white;
+.view-home, .view-detail {
+	max-width: 50rem;
 }
 
 .view-detail {
+	background-color: $main-white;
 	padding: 2em;
+}
+
+.view-list {
+	max-width: 65rem;
+}
+
+.view-list > header {
+	max-width: 50rem;
+	margin: 0 auto;
 }
 
 .view-list figcaption {
@@ -164,24 +213,19 @@ button {
 }
 
 .list-figure, .detail-figure {
+	margin: 0;
 	max-width: 100%;
 	width: 100%;
 }
 
-.container-articles section {
-	position: relative;
-	padding: 1em;
-	background-color: $main-white;
-}
-
-.container-articles section footer {
+.detail-article header {
 	display: flex;
 	justify-content: space-between;;
 	padding: 0;
-	margin-top: 1em;
+	margin: 1em;
 }
 
-footer .list-article-concept {
+.detail-article header .list-article-concept {
 	list-style-type: none;
 	display: flex;
 	align-items: center;
@@ -189,50 +233,499 @@ footer .list-article-concept {
 	padding: 0;
 }
 
-footer .list-article-concept li {
+.detail-article header .list-article-concept li {
 	margin: 0;
 	margin-right: 1em;
 	color: darken($main-grey, 5%);
 }
 
-.detail-link {
-    background: $main-black;
-    text-decoration: none;
-    color: $main-white;
-	font-weight: 700;
-    padding: 1em;
+/*// ========================================================
+// Navigation
+// ========================================================*/
+.main-nav {
+	max-width: 55rem;
+	margin: 0 auto;
+	box-sizing: border-box;
+	width: 100%;
+	padding: $margin $margin 0;
+	color: $main-white;
+	background-color: $main-black;
 }
 
-.detail-link:after {
+.container-nav-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.container-nav-heading a {
+	position: relative;
+}
+
+nav ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+nav h1 {
+	margin: 0.2em;
+}
+
+.main-nav li {
+	position: relative;
+}
+
+.main-nav a {
+	font-weight: 300;
+	text-decoration: none;
+}
+
+.main-nav a:after {
 	content: '';
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+.main-nav-list {
+	width: 100%;
+	padding: .2em;
+}
+
+.main-nav-list > li {
+	width: calc(100%/4);
+}
+
+.main-nav-list li {
+	position: relative;
+	background-color: $main-black;
+	padding: .5em;
+}
+
+.main-nav-list li:hover, .main-nav-list li a:focus {
+	background-color: $main-yellow;
+	color: $main-black;
+}
+
+.main-nav-list > li:not(:last-child) { 
+	border-bottom: 1px solid $main-yellow;
+}
+
+.main-nav-list li[data-submenu='true']:after {
+	content: '';
 	position: absolute;
+	bottom: 0;
+	width: 1em;
+	height: .5em;
+	left: 50%;
+	transform: translateX(-50%);
+	background-image: url(../img/icon-down.svg);
+	background-size: 1em;
+}
+
+.sub-nav {
+	display: flex;
+	margin: 1em 0 0 1.5em;
+	flex-direction: column;
+	transition: all .3s ease-in-out;
+}
+
+.sub-nav a {
+	color: $main-white;
+}
+
+.sub-nav li {
+	list-style-type: disc;
+	padding: .2em;
+}
+
+.sub-nav li:hover a{
+	color: $main-black;
+}
+
+
+/*// ========================================================
+// Log in 
+// ========================================================*/
+.login-form {
+	background-color: $main-white;
+	padding: $margin*1.5 $margin*2;
+	margin: $margin*1.2;
+}
+
+.login-form fieldset {
+	box-sizing: border-box;
+	margin-bottom: $margin*.5;
+}
+
+.login-form button[type=submit] {
+	width: 100%;
+}
+
+input[type=email], input[type=password] {
+	transition: all .3s ease-in-out;
+	border: 1px solid darken($light-grey, 10);
+	padding: 1.5em;
+	width: min-content;
+}
+
+label[for=field-stay-logged-in] {
+	font-size: .8em;
+	color: $main-grey;
+}
+
+.container-input:first-child input {
+	border-bottom: 0;
+}
+
+.container-input:nth-child(2) {
+	margin-bottom: .5em;
+}
+
+.container-input {
+	position: relative;
+}
+
+.container-input label {
+	color: $main-grey;
+	position: absolute;
+	left: 1.5em;
+	top: 49%;
+	transform: translateY(-50%);
+	transition: all .3s ease-in-out;
+}
+
+/* Resource https://codepen.io/sivan/pen/alKwf */
+.container-input input:focus + label {
+	top: .8em;
+	left: 2em;
+	font-size: .8rem;
+	color: $main-grey;
+}
+
+.container-input input[data-empty="false"] + label {
+	top: .8em;
+	left: 2em;
+	font-size: .8rem;
+	color: $main-grey;
+}
+/**/
+
+.container-input input[data-empty="false"]:valid + label {
+	color: $main-green;
+}
+
+form fieldset:first-child:valid input {
+	background-color: $light-green;
+	border-color: $main-green;
+}
+
+form fieldset:first-child:valid input[data-empty="false"]:valid + label {
+	color: $main-grey;
+}
+
+
+/*// ========================================================
+// Media Item
+// ========================================================*/
+.container-articles > section:not(:first-child) {
+	flex-basis: 48%;
+}
+
+.media-item {
+	padding: 1em;
+	width: 100%;
+	box-sizing: border-box;
+	position: relative;
+	background-color: $main-white;
+}
+
+.media-item header {
+	position: relative;
+}
+
+.media-item:not(:first-child) header {
+	font-size: 0.7em;
+}
+
+.media-item footer {
+	display: flex;
+	justify-content: space-between;;
+	padding: 0;
+	margin-top: 1em;
+}
+
+.media-item h2 {
+	color: $main-black;
+    text-decoration: none;
+	font-weight: 300;
+}
+
+.media-item img {
+	width: 100%;
+}
+
+.media-item a {
+	font-weight: 100;
+	text-decoration: none;
+}
+
+.media-item a:after {
+	z-index: 1;
+	box-sizing: border-box;
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: '';
+	width: 100%;
+	height: 100%;
+}
+
+.media-item a:focus:after {
+	border: 5px solid $main-blue;
+}
+
+.media-item footer .list-article-concept {
+	list-style-type: none;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+}
+
+.media-item footer .list-article-concept li {
+	margin: 0;
+	margin-right: 1em;
+	color: darken($main-grey, 5%);
+}
+
+/*// ========================================================
+// Picture with subtitle
+// ========================================================*/
+figure figcaption {
+	box-sizing: border-box;
+	font-size: .8em;
+	font-weight: 300;
+	color: $main-grey;
+}
+
+figcaption footer {
+	font-weight: 300;
+	font-size: .8em;
+	color: $main-grey;
+	text-align: right;
+}
+
+/*// ========================================================
+// Rating
+// ========================================================*/
+.component-rating svg {
+	width: 40px;
+}
+
+.component-rating legend {
+	padding: .5em 1em;
+	background-color: $main-white;
+	font-size: 1em;
+}
+
+.component-rating input[type=radio] {
+	position: absolute;
+    clip: rect(0,0,0,0);
+}
+
+.component-rating input[type=radio]:indeterminate + label svg {
+	filter: none;
+}
+
+.component-rating input:not(:checked) + label svg {
+	filter: blur(2px);
+	transform: scale(.9);
+}
+
+.component-rating label {
+	float: left;
+	font-size: .8em;
+	display: flex;
+	margin: $margin*.5 $margin;
+	flex-direction: column;
+	text-align: center;
+}
+
+.component-rating label svg {
+	transition: all .3s ease-in-out;
+}
+
+/*// ========================================================
+//	Lightbox
+// ========================================================*/
+/* Resource lightbox: https://developer.mozilla.org/en-US/docs/Web/CSS/:target */
+div.lightbox {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+div.lightbox:target {
+	z-index: 1;
+	display: flex;
+	align-items: center;
+  	justify-content: center;
+}
+
+div.lightbox:target .close-lightbox {
+	display: block;
+}
+
+div.lightbox section {
+	padding: $margin;
+	background-color: $main-white;
+}
+
+.close-lightbox {
+	color: $main-grey;
+	margin-top: .5em;
+	text-align: right;
+	display: none;
+}
+
+.close-lightbox::after {
+	z-index: -1;
+	content: '';		
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(22, 65, 67, .6);
 }
 
 .js-hide {
 	display: none;
 }
 
-@media screen and (min-width: 800px) {
-	.list-title {
-		font-size: 2.5em;
-		bottom: 2em;
-	    position: absolute;
-	    width: 90%;
-	    left: 1em;
-	    z-index: 1;
+@media screen and (min-width: 50em) {
+	/*// ========================================================
+	// Navigation
+	// ========================================================*/
+	.main-nav {
+		padding: 0;
+		padding-left: $margin;
+		display: flex;
+		justify-content: space-between;
 	}
 
-	.list-title {
-		background-color: $main-black;
+	.main-nav-list li {
+		padding: 1em;
+		text-align: center;
+	}
+
+	.main-nav-list > li:not(:last-child) { 
+		border-right: 1px solid $main-yellow;
+		border-bottom: 0;
+	}
+
+	.container-nav-heading {
+		margin-right: $margin;
+	}
+
+	.main-nav-list {
+		display: flex;
+		width: auto;
+	}
+
+	.sub-nav {
+		position: absolute;
+		opacity: 0;
+		clip: rect(0, 0, 0, 0); 
+		height: 1px; 
+		width: 1px; 
+		margin: -1px; 
+		padding: 0;
+	}
+
+	.sub-nav li {
+		list-style-type: none;
+	}
+
+	.main-nav-list li:hover .sub-nav, .main-nav-list a:focus ~ .sub-nav {
+		opacity: 1;
+		top: 100%;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		clip: auto;
+		margin: 0;
+	}
+
+	/*// ========================================================
+	// Media item
+	// ========================================================*/
+	.main-nav-list {
+		width: auto;
+	}
+	.media-item h2 {
+		padding: .5em;
+		font-size: 2em;
+		bottom: 0;
+	    position: absolute;
+	    width: 85%;
+	    left: 1rem;
+	    z-index: 1;
+	    background-color: $main-black;
 		color: $main-white;
 	}
 
-	.container-articles section:hover h2 {
+	.media-item:first-child h2 {
+		font-size: 2.5em;
+		bottom: 1rem;
+	}
+
+	.media-item:hover h2 {
 		background-color: $main-orange;
 		color: $main-black;
+	}
+
+	/*// ========================================================
+	// Picture with subtitle
+	// ========================================================*/
+	figure figcaption {
+		position: absolute;
+		font-size: 1em;
+		font-weight: 300;
+		bottom: 0;
+		padding: $margin;
+		width: 100%;
+		color: $main-white;
+		background-color: rgba(0, 0, 0, .7);
+	}
+
+	figure figcaption span:last-child {
+		display: block;
+		font-size: .7em;
+		text-align: right;
+		margin-top: 1em;
+	}
+
+	figcaption footer {
+		color: $main-white;
+		padding: $margin;
+	}
+}
+
+@media screen and (min-width: 40em) {
+	.container-articles {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
 	}
 }
