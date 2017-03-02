@@ -5,11 +5,14 @@
 	// ========================================================
 	class App {
 		constructor() {
-			this.request = new Request();
+			this.request = new Request(this);
 			this.router = new Router(this);
 			this.views = new Views(this);
 			this.readtimefilter = new ReadtimeFilter(this);
 			this.analyseText = new AnalyseText(this);
+
+			// Dom elements
+			this.loaderEl = document.querySelector('.container-loader');
 		}
 
 		init() {
@@ -37,7 +40,14 @@
 	// Request 
 	// ========================================================
 	class Request {
+		constructor(app) {
+			this.app = app
+			this.activeLoaderClass = 'active-loader';
+		}
+
 		make(type, url, callback) {
+			this.app.loaderEl.classList.add(this.activeLoaderClass);
+
 			const httpRequest = new XMLHttpRequest();
 
 			httpRequest.onload = () => {
@@ -45,7 +55,9 @@
 					if (httpRequest.status >= 200 && httpRequest.status < 400) {
 						// Parse the responseText to JSON
 						const data = JSON.parse(httpRequest.responseText);
-						callback(data)
+
+						this.app.loaderEl.classList.remove(this.activeLoaderClass);
+						callback(data);
 					} else {
 						console.error(err);
 					}
@@ -98,7 +110,6 @@
 		set(activeViewId, id) {
 			// Set view template for the article that is navigated to
 			if(activeViewId == 'view-detail') {
-				console.log(this.app.data)
 				this.app.data.forEach(function(data){
 					if(id == data.blocks.body[0].id) {
 						this.app.analyseText.getAnalysis(data);
@@ -139,7 +150,6 @@
 		}
 
 		detailTemplate(article) {
-			console.log(article)
 			const containerEl = document.querySelector('.detail-article');
 		    const template = document.getElementById('detail-template').innerHTML;
 		    const el = document.createElement('section');
