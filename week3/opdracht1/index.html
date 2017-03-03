@@ -25,6 +25,24 @@
 		        </li>
 		    </ul>
 		</nav>
+		<div class="container-categories">
+			<ul>
+				<li><a href="#view-list/artanddesign">Art and Design</a></li>
+				<li><a href="#view-list/books">Books</a></li>
+				<li><a href="#view-list/commentisfree">Comment Is Free</a></li>
+				<li><a href="#view-list/culture">Culture</a></li>
+				<li><a href="#view-list/environment">Environment</a></li>
+				<li><a href="#view-list/extra">Extra</a></li>
+				<li><a href="#view-list/film">Film</a></li>
+				<li><a href="#view-list/music">Music</a></li>
+				<li><a href="#view-list/news">News</a></li>
+				<li><a href="#view-list/politics">Politics</a></li>
+				<li><a href="#view-list/science">Science</a></li>
+				<li><a href="#view-list/sport">Sport</a></li>
+				<li><a href="#view-list/technology">Technology</a></li>
+				<li><a href="#view-list/world">World</a></li>
+			</ul>
+		</div>
 	</header>
 	<main class="container-views">
 		<article class="view view-home" id="view-home">
@@ -118,11 +136,40 @@
 	</script>
 	<script id="detail-template" type="x-template">
 		<header>
-			<ul class="list-article-concept">			
-				<li class="list-article-concept1"></li>
-				<li class="list-article-concept2"></li>
-				<li class="list-article-concept3"></li>
-			</ul>
+			<input id="analysis-checkbox" class="analysis-checkbox" type="checkbox"></input>
+			<label for="analysis-checkbox">Show analysis</label>
+			<div class="container-analysis">
+				<div>
+					<h3>Emotionscore of the article</h3>
+					<ul class="">			
+						<li class="emotion-anger">Anger: <span></span></li>
+						<li class="emotion-disgust">Disgust: <span></span></li>
+						<li class="emotion-fear">Fear: <span></span></li>
+						<li class="emotion-joy">Joy: <span></span></li>
+						<li class="emotion-sadness">Sadness: <span></span></li>
+					</ul>
+				</div>
+				<div>
+					<h3>Top 3 concepts in the article</h3>
+					<ol class="">			
+						<li class="list-article-concept1"></li>
+						<li class="list-article-concept2"></li>
+						<li class="list-article-concept3"></li>
+					</ol>
+				</div>
+				<div>
+					<h3>Top 3 entities in the article</h3>
+					<ol class="">			
+						<li class="list-article-entitie1"></li>
+						<li class="list-article-entitie2"></li>
+						<li class="list-article-entitie3"></li>
+					</ol>
+				</div>
+				<div>
+					<h3>Overall article sentiment</h3>
+					<p class="article-sentiment"></p>
+				</div>
+			</div>
 		</header>
 		<div class="detail-figure"></div>
 		<h2 class="detail-title"></h2>

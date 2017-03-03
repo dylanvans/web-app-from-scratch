@@ -17,17 +17,17 @@
 
 		init() {
 			this.getData();
+			this.router.init();
 		}
 
-		getData() {
+		getData(categorie) {
 			const apiKey = 'cca1dc44-8318-4823-b2e8-ae009aa3941a';
-			const section = 'film';
+			const section = categorie ? categorie : 'extra'; // query= 'section=''
 			const url = `https://content.guardianapis.com/search?section=${section}&show-blocks=all&api-key=${apiKey}`;
 
 			// When the data is received fire other functions that uses this data
 			const callback = function(data) {
 				this.data = data.response.results;
-				this.router.init();
 				this.views.listTemplate(this.data);
 				this.readtimefilter.setReadtime();
 			}.bind(this);
@@ -59,7 +59,7 @@
 						this.app.loaderEl.classList.remove(this.activeLoaderClass);
 						callback(data);
 					} else {
-						console.error(err);
+						// console.error(err);
 					}
 				}
 			}
@@ -82,13 +82,18 @@
 		}
 
 		init() {
-			// Sets correct view when the hashurl changes
+			// Sets correct view when the hash changes
 			routie({
 			    'view-home': function() {
 			    	app.views.set(this.path);
 			    },
 			    'view-list': function() {
 			    	app.views.set(this.path);
+			    },
+			    'view-list/:categorie': function(categorie) {
+			    	app.getData(categorie);
+			    	app.views.listTemplate(app.data)
+			    	app.views.set('view-list');
 			    },
 			    'view-detail/:id': function(id) {
 			    	app.views.set('view-detail', id);
@@ -163,9 +168,35 @@
 				el.querySelector('.detail-figure').innerHTML += article.blocks.main.bodyHtml;
 			}
 
-			el.querySelector('.list-article-concept1').innerHTML += article.analysis.concepts[0].text;
-	   		el.querySelector('.list-article-concept2').innerHTML += article.analysis.concepts[1].text;
-	   		el.querySelector('.list-article-concept3').innerHTML += article.analysis.concepts[2].text;
+			// Analysis templating
+			el.querySelector('.emotion-anger span').innerHTML = article.analysis.docEmotions.anger;
+			el.querySelector('.emotion-disgust span').innerHTML = article.analysis.docEmotions.disgust;
+			el.querySelector('.emotion-fear span').innerHTML = article.analysis.docEmotions.fear;
+			el.querySelector('.emotion-joy span').innerHTML = article.analysis.docEmotions.joy;
+			el.querySelector('.emotion-sadness span').innerHTML = article.analysis.docEmotions.sadness;
+
+			el.querySelector('.article-sentiment').innerHTML = article.analysis.docSentiment.type;
+
+			for (let i = 0; i < 3; i++) { // Analysis top 3's
+				const entitieEl =  el.querySelector('.list-article-entitie'+ (i+1));
+				const conceptEl = el.querySelector('.list-article-concept' + (i+1));
+
+				conceptEl.innerHTML += article.analysis.concepts[i].text;
+
+				if(article.analysis.entities[i].disambiguated) {
+					if(article.analysis.entities[i].disambiguated.dbpedia) {
+						const linkEl = document.createElement('a');
+
+						linkEl.href = article.analysis.entities[i].disambiguated.dbpedia;
+						linkEl.innerHTML += article.analysis.entities[i].text;
+						entitieEl.appendChild(linkEl);
+					} else {
+						entitieEl.innerHTML += article.analysis.entities[i].text;
+					}
+				} else {
+					entitieEl.innerHTML += article.analysis.entities[i].text;
+				}
+			}
 
 			containerEl.innerHTML = ''; //Empty html, so the old element is removed
 			containerEl.appendChild(el);
@@ -223,6 +254,7 @@
 
 			const callback = function(results) {
 				data.analysis = results;
+				console.log(data)
 				this.app.views.detailTemplate(data);
 			}.bind(this);
 
