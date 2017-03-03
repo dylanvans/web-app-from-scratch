@@ -10,8 +10,10 @@
 - Read an analysis of the article, by the IBM Watson text analyse API
 
 ## SPA Diagram
+![Alt text](/spa-diagram.png?raw=true "SPA Diagram")
 
 ## Flow Diagram
+![Alt text](/flow-diagram.png?raw=true "Flow Diagram")
 
 ## Wishlist
 ### Urgent
