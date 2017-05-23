@@ -21,9 +21,9 @@
 		}
 
 		getData(categorie) {
-			const apiKey = 'cca1dc44-8318-4823-b2e8-ae009aa3941a';
-			const section = categorie ? categorie : 'world'; // Query= 'section=''
-			const url = `https://content.guardianapis.com/search?section=${section}&show-blocks=all&api-key=${apiKey}`;
+			this.apiKey = 'cca1dc44-8318-4823-b2e8-ae009aa3941a';
+			this.section = categorie ? categorie : 'world'; // Query= 'section=''
+			this.url = `https://content.guardianapis.com/search?section=${this.section}&show-blocks=all&api-key=${this.apiKey}`;
 
 			// When the data is received fire other functions that uses this data
 			const callback = data => {
@@ -32,7 +32,7 @@
 				this.readtimefilter.setReadtime();
 			};
 
-			this.request.make('GET', url, callback);
+			this.request.make('GET', this.url, callback);
 		}
 	}
 
@@ -84,18 +84,18 @@
 		init() {
 			// Sets correct view when the hash changes
 			routie({
-				'view-home': () => {
+				'view-home': function() {
 					app.views.set(this.path);
 				},
-				'view-list': () => {
+				'view-list': function() {
 					app.views.set(this.path);
 				},
-				'view-list/:categorie': categorie => {
+				'view-list/:categorie': function(categorie) {
 					app.getData(categorie);
 					app.views.listTemplate(app.data);
 					app.views.set('view-list');
 				},
-				'view-detail/:id': id => {
+				'view-detail/:id': function(id) {
 					app.views.set('view-detail', id);
 				}
 			});
@@ -230,8 +230,8 @@
 		}
 
 		filterOnReadtime() {
-			const inputValue = parseInt(this.inputEl.value);
-			const data = this.app.data.filter( obj => obj.readtime <= inputValue);
+			this.inputValue = parseInt(this.inputEl.value);
+			const data = this.app.data.filter( obj => obj.readtime <= this.inputValue);
 
 			return data;
 		}
@@ -246,9 +246,9 @@
 		}
 
 		getAnalysis(data) {
-			const apiKey = '48b969b8b495acea94df04523e22ba22e84ab262';
-			const extract = 'concepts,doc-emotion,entities,doc-sentiment';
-			const maxRetrieve = 20;
+			this.apiKey = '48b969b8b495acea94df04523e22ba22e84ab262';
+			this.extract = 'concepts,doc-emotion,entities,doc-sentiment';
+			this.maxRetrieve = 20;
 
 			const callback = results => {
 				data.analysis = results;
@@ -256,7 +256,7 @@
 				this.app.views.detailTemplate(data);
 			};
 
-			this.app.request.make('GET', `https://gateway-a.watsonplatform.net/calls/url/URLGetCombinedData?quotations=1&maxRetrieve=${maxRetrieve}&extract=${extract}&apikey=${apiKey}&outputMode=json&url=${data.webUrl}`, callback);
+			this.app.request.make('GET', `https://gateway-a.watsonplatform.net/calls/url/URLGetCombinedData?quotations=1&maxRetrieve=${this.maxRetrieve}&extract=${this.extract}&apikey=${this.apiKey}&outputMode=json&url=${data.webUrl}`, callback);
 		}
 	}
 
